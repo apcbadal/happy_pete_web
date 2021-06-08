@@ -38,8 +38,11 @@ class Login extends Component {
         return (
             <div className="login-container">
                 <div className="login-content">
-                    <h1 className="login-title">Login <br/>Happy St Pete</h1>
+                    <h1 className="login-title">Login</h1>
                     <LoginForm {...this.props} />
+                    <div className="signup">
+                        <a href="/signup">New user? Signup</a>
+                    </div>
                 </div>
             </div>
         );
@@ -133,17 +136,19 @@ class LoginForm extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-item">
+                    <label htmlFor="email">E-mail</label>
                     <input type="email" name="email"
-                        className="form-control" placeholder="Email"
-                        value={this.state.email} onChange={this.handleInputChange} required/>
+                        className="form-control"
+                        value={this.state.email} id="email" onChange={this.handleInputChange} required/>
                 </div>
                 <div className="form-item">
+                    <label htmlFor="password">Password</label>
                     <input type="password" name="password"
-                        className="form-control" placeholder="Password"
-                        value={this.state.password} onChange={this.handleInputChange} required/>
+                        className="form-control" 
+                        value={this.state.password} id="password" onChange={this.handleInputChange} required/>
                 </div>
                 <div className="form-item">
-                    <button type="submit" className="btn btn-block btn-primary">Login</button>
+                    <button type="submit" className="login-btn btn btn-block btn-primary">Login</button>
                 </div>
             </form>
         );

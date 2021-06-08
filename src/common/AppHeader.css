@@ -1,27 +1,36 @@
-.app-header {
-    height: 60px;
-    position: relative;
-    z-index: 10;
+.app__header {
+    height: auto;
+    background-color: #DFFFFF;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* flex-direction: column; */
+}
+.logo{
+    width: 200px;
 }
 
+
+
 .app-title {
-    line-height: 60px;
-    vertical-align: middle;
-    font-size: 1.35em;
+
 }
 
 .app-branding {
-    float: left;
+
 }
 
 .app-options {
-    float: right;
+
 }
 
 .app-nav ul {
     list-style-position: none;
     margin: 0;
     padding: 0;
+    font-size: 1.2em;
 }
 
 .app-nav ul li {
@@ -35,13 +44,27 @@
     vertical-align: middle;
     padding-left: 15px;
     padding-right: 15px;
-    color: rgba(0,0,0,0.65);
+    color: #000000;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 16px;
+
 }
 
 .app-nav ul li a:hover {
-    color: #0f96f6;
+    color: #008080;
 }
 
 .app-nav ul li a.active {
-    color: #0f96f6;
+    color: #008080;
+}
+
+@media screen and (max-width:768px) {
+    .logo{
+        width: 150px;
+    }
+    .app-nav ul li a {
+        font-size: 14px;
+    
+    }
 }

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './AppHeader.css';
+import logo from "../img/logo.png"
 
 class AppHeader extends Component {
     render() {
         return (
-            <header className="app-header">
+            <header className="app__header">
                 <div className="container">
                         <div className="app-branding">
-                            <Link to="/" className="app-title">Home</Link>
+                            <Link to="/" >
+                                <img className="logo" src={logo} />
+                            </Link>
                         </div>
                     {/*<div className="app-branding">
                         <Link to="/triangle" className="app-title">Triangle</Link>
