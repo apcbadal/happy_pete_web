@@ -1,0 +1,25 @@
+{
+  "name": "react-social",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "bootstrap": "^4.6.0",
+    "firebase": "^8.5.0",
+    "react": "^16.6.0",
+    "react-bootstrap": "^1.6.0",
+    "react-collapsible": "^2.8.3",
+    "react-dom": "^16.6.0",
+    "react-dropdown-select": "^4.7.4",
+    "react-router-dom": "^4.3.1",
+    "react-s-alert": "^1.4.1",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

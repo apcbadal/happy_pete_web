@@ -1,0 +1,46 @@
+.is-closed{
+cursor: pointer;
+border: solid 1px #f2f2f2;
+background-color:white;
+font-weight: 700;
+font-size: x-large;
+color:black;
+max-width: fit-content;
+}
+.is-open{
+cursor: pointer;
+
+font-size: xx-large;
+font-weight: 700;
+color:black;
+
+}
+.todo-lists{
+    margin-left: 10%;
+}
+.summary-row{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2%;
+}
+.summary-text{
+    font-weight: 600;
+    color: black;
+}
+.completed-todo{
+    font-weight: 800;
+    margin-top: 1%;
+}
+.pending-todo{
+    font-weight: 800;
+    margin-top: 1%;
+}
+.completed-todo-div{
+    margin-bottom: 3%;
+}
+.todo-row{
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ margin: 0 auto;
+}
