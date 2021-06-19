@@ -74,15 +74,15 @@ class Item extends Component {
                             data: this.props.item // your data array of objects
                         }}
                     >Edit</Link>
-                    {/*<Button onClick={this.removePlace(this.props.item.key)}>Delete</Button>*/}
+                    <Button onClick={this.removePlace(this.props.item)}>Delete</Button>
                 </Card.Body>
             </Card>
         )
     }
 
 
-    removePlace(key) {
-        FirebaseConfig.database().ref('places/').child(key).remove();
+    removePlace(item) {
+        FirebaseConfig.database().ref('places/').child(item.key).remove();
     }
 }
 

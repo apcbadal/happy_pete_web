@@ -145,9 +145,9 @@ class UploadPlace extends Component {
         this.setState({ foodMenu});
     }
     removeSwipeImage(i){
-        let swipeImage = [...this.state.swipeImageURIs];
-        swipeImage.splice(i, 1);
-        this.setState({ swipeImage});
+        let swipeImageURIs = [...this.state.swipeImageURIs];
+        swipeImageURIs.splice(i, 1);
+        this.setState({ swipeImageURIs});
     }
 
     render() {
