@@ -5,14 +5,17 @@ import Alert from "react-s-alert";
 import './UploadPlace.css'
 
 class UploadPlace extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            category: "", name: "", phoneNumber: "", address: "", website: "", happyHour: "", drinkMenu: [{ menu: "", price: "" }], foodMenu: [{ menu: "", price: "" }], latitude: '', longitude: '', avatar_url: ""
+           swipeImageURIs:[{swipeImageURI:''}], category: "", name: "", phoneNumber: "", address: "", website: "", happyHour: "", drinkMenu: [{ menu: "", price: "" }], foodMenu: [{ menu: "", price: "" }], latitude: '', longitude: '', avatar_url: ""
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSwipeImageChange=this.handleSwipeImageChange.bind(this)
+        this.removeSwipeImage=this.removeSwipeImage.bind(this)
         // this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSelect(event) {
@@ -41,6 +44,16 @@ class UploadPlace extends Component {
         }
         this.setState({ foodMenu });
     }
+    handleSwipeImageChange(i, e) {
+        const { name, value } = e.target;
+        let swipeImageURIs = [...this.state.swipeImageURIs];
+        swipeImageURIs[i] = { ...swipeImageURIs[i], [name]: value };
+        if (e.target.checked) {
+            const { name, checked } = e.target;
+            swipeImageURIs[i] = { ...swipeImageURIs[i], [name]: checked }
+        }
+        this.setState({ swipeImageURIs });
+    }
     handleInputChange(event) {
         const target = event.target;
         const inputName = target.name;
@@ -68,11 +81,12 @@ class UploadPlace extends Component {
                 foodMenu: this.state.foodMenu,
                 drinkMenu: this.state.drinkMenu,
                 category: this.state.category,
-                avatar_url: this.state.avatar_url
+                avatar_url: this.state.avatar_url,
+                swipeImageURIs: this.state.swipeImageURIs
             })
             .then(() => Alert.success("Data Saved successfully."),
                 this.setState({
-                    category: "", name: "", phoneNumber: "", address: "", website: "", happyHour: "", drinkMenu: [{ menu: "", price: "" }], foodMenu: [{ menu: "", price: "" }], latitude: '', longitude: '', avatar_url: ""
+                    category: "", name: "", phoneNumber: "", address: "", website: "", happyHour: "", drinkMenu: [{ menu: "", price: "" }], foodMenu: [{ menu: "", price: "" }],swipeImageURIs: [{ swipeImageURI: ""}], latitude: '', longitude: '', avatar_url: ""
                 }),
             );
     }
@@ -82,7 +96,7 @@ class UploadPlace extends Component {
             <div key={i} className="todo-div MenuItem form-item row">
                 <input className="form-control col-lg-6" placeholder="Menu" name="menu" value={el.menu || ''} onChange={this.handleChange.bind(this, i)} />
                 <input className="form-control col-lg-6" placeholder="Price" name="price" value={el.price || ''} onChange={this.handleChange.bind(this, i)} />
-                <input className="btn delete-btn" type='button' value="Delete" onClick={this.addClick.bind(this)} />
+                <input className="btn delete-btn" type='button' value="Delete" onClick={this.removeDrinkMenu.bind(this)} />
             </div>
         ))
     }
@@ -91,7 +105,16 @@ class UploadPlace extends Component {
             <div key={i} className="todo-div MenuItem form-item">
                 <input className="form-control" placeholder="Menu" name="menu" value={el.menu || ''} onChange={this.handleFoodChange.bind(this, i)} />
                 <input className="form-control" placeholder="Price" name="price" value={el.price || ''} onChange={this.handleFoodChange.bind(this, i)} />
-                <input className="btn delete-btn" type='button' value="Delete" onClick={this.addClick.bind(this)} />
+                <input className="btn delete-btn" type='button' value="Delete" onClick={this.removeFoodMenu.bind(this)} />
+
+            </div>
+        ))
+    }
+    createSwipeImageUI() {
+        return this.state.swipeImageURIs.map((el, i) => (
+            <div key={i} className="todo-div MenuItem form-item">
+                <input className="form-control" placeholder="Image URL" name="swipeImageURI" value={el.swipeImageURI || ''} onChange={this.handleSwipeImageChange.bind(this, i)} />
+                <input className="btn delete-btn" type='button' value="Delete" onClick={this.removeSwipeImage.bind(this)} />
 
             </div>
         ))
@@ -101,22 +124,40 @@ class UploadPlace extends Component {
             drinkMenu: [...prevState.drinkMenu, { menu: "", price: "" }]
         }))
     }
+    addSwipeImage(){
+        this.setState(prevState => ({
+            swipeImageURIs: [...prevState.swipeImageURIs, { swipeImageURI: ""   }]
+        }))
+    }
     addFoodMenu() {
         this.setState(prevState => ({
             foodMenu: [...prevState.foodMenu, { menu: "", price: "" }]
         }))
     }
+    removeDrinkMenu(i){
+        let drinkMenu = [...this.state.drinkMenu];
+        drinkMenu.splice(i, 1);
+        this.setState({ drinkMenu});
+    }
+    removeFoodMenu(i){
+        let foodMenu = [...this.state.foodMenu];
+        foodMenu.splice(i, 1);
+        this.setState({ foodMenu});
+    }
+    removeSwipeImage(i){
+        let swipeImage = [...this.state.swipeImageURIs];
+        swipeImage.splice(i, 1);
+        this.setState({ swipeImage});
+    }
 
     render() {
         return (
-            
+
             <div className="uploadPlace__container">
 
                 <div className="uploadPlace__form">
 
                     <h1 className="form__heading">Upload Place</h1>
-
-
 
                     <form onSubmit={this.handleSubmit}>
 
@@ -193,8 +234,6 @@ class UploadPlace extends Component {
                         <input className="btn add-more-btn" type='button' value='Add more' onClick={this.addFoodMenu.bind(this)} />
                         </div>
 
-
-
                         <div className="form-item">
                             <label for="category">Category</label>
 
@@ -208,26 +247,25 @@ class UploadPlace extends Component {
                         </div>
 
                         <div className="form-item">
-                            
+
                             <label for="avatar_url">Avatar URL</label>
                             <input type="text" name="avatar_url"
                                 id="avatar_url"
                                 className="form-control" placeholder="Avatar URL"
                                 value={this.state.avatar_url} onChange={this.handleInputChange} />
                         </div>
+                        <div className="form-item">
+                            <label>Add Swipe Image URL</label>
+                            {this.createSwipeImageUI()}
+                        </div>
+                        <div className="buttonContainer">
+                            <input className="btn add-more-btn" type='button' value='Add more' onClick={this.addSwipeImage.bind(this)} />
+                        </div>
 
-
-                        <div class="form-item">
-  <label for="formFile" class="form-label">Choose featured images</label>
-  <input class="form-control" type="file" id="formFile" style={{lineHeight:2.5}}/>
-</div>
 
                         <div className="form-item">
                             <button type="submit" className="btn btn-block save-btn" style={{marginTop:"50px"}}>Save</button>
                         </div>
-
-
-                        
                     </form>
                 </div>
             </div>
